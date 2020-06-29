@@ -1,0 +1,67 @@
+<form>
+  <collapse accordion="true">
+    <panel title="常规">
+      <input type="dropdown"  field="dataType" required="true">
+        <label>统计选项</label>
+        <initial-value>current</initial-value>
+        <choice value="current">当前值</choice>
+        <choice value="secondary">次新值</choice>
+        <choice value="total">总和</choice>
+        <choice value="max">最大值</choice>
+        <choice value="min">最小值</choice>
+        <choice value="avg">平均值</choice>
+      </input>
+      <input type="dropdown" field="metric">
+        <label>统计指标</label>
+        <dataset>fields</dataset>
+      </input>
+    </panel>
+    <panel title="样式">
+      <input type="dropdown" field="shape">
+        <label>形状</label>
+        <initial-value>circle</initial-value>
+        <choice value="circle">圆</choice>
+        <choice value="rect">方形</choice>
+        <choice value="roundRect">圆角方形</choice>
+        <choice value="triangle">三角形</choice>
+        <choice value="diamond">菱形</choice>
+        <choice value="pin">水滴</choice>
+        <choice value="arrow">箭头</choice>
+         <choice value="container">容器</choice>
+       </input>
+       <input type="dropdown" field="outlineShow">
+         <label>显示边框</label>
+         <initial-value>true</initial-value>
+         <choice value="false">否</choice>
+         <choice value="true">是</choice>
+       </input>
+       <input type="color" field="outlineBorderColor">
+        <label>边框颜色</label>
+        <initial-value>#156ACF</initial-value>
+       </input>
+       <input type="color" field="backgroundColor">
+        <label>背景色</label>
+        <initial-value>#ffff</initial-value>
+      </input>
+      <input type="number" field="fontSize">
+        <label>字号</label>
+        <initial-value>50</initial-value>
+      </input>
+      <input type="number" field="amplitude">
+        <label>水波震动幅度</label>
+        <initial-value>9</initial-value>
+      </input>
+      <input type="color" field="waveColor">
+        <label>水波颜色</label>
+        <initial-value>#2c6dd2</initial-value>
+      </input>
+      <input type="dropdown" field="direction">
+        <label>水波方向</label>
+        <initial-value>left</initial-value>
+         <choice value="left">向左</choice>
+        <choice value="center">居中</choice>
+        <choice value="right">向右</choice>
+       </input>
+    </panel>
+  </collapse>
+</form>
