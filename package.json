@@ -1,5 +1,5 @@
 {
-  "name": "liquidFill",
+  "name": "liquid-fill-viz",
   "version": "1.0.0",
   "description": "可视化应用脚手架",
   "author": "pandora",
@@ -16,7 +16,7 @@
     "build": "rollup -c",
     "start": "rollup -c -w",
     "platform": "cd platform && yarn install && yarn run start",
-    "package": "cp -Rf dist/form.xml app/appserver/static/visualizations/liquidFill/form.xml&&cp -Rf dist/index.es.js app/appserver/static/visualizations/liquidFill/visualization.js && cp -Rf dist/index.css app/appserver/static/visualizations/liquidFill/visualization.css && tar -czvf liquidFill.tar.gz app"
+    "package": "cp -Rf dist/form.xml app/appserver/static/visualizations/liquidFill/form.xml&&cp -Rf dist/index.es.js app/appserver/static/visualizations/liquidFill/visualization.js && cp -Rf dist/index.css app/appserver/static/visualizations/liquidFill/visualization.css && tar -czvf liquid-fill-viz.tar.gz app"
   },
   "peerDependencies": {
     "@qn-pandora/visualization-sdk": "^1.2.5",
