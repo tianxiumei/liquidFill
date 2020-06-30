@@ -21,10 +21,10 @@
   "scripts": {
     "start": "craco start"
   },
-  "proxy": "http://cs19:9220",
+  "proxy": "http://pandora-express-rc.qiniu.io",
   "account": {
     "username": "pandora@qiniu.com",
-    "password": "12345678"
+    "password": "123456a"
   },
   "browserslist": {
     "production": [

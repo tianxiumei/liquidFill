@@ -1,1 +1,78 @@
-<text>配置相关图表的 xml 来展示该图表</text>
+<dashboard
+  theme="$operationBarToken.theme$"
+  time="$operationBarToken.time$"
+  refresh-interval="$operationBarToken.refreshInterval$"
+>
+  <operation-bar token="operationBarToken">
+    <title>水球图</title>
+    <initial-value>
+      <theme>light</theme>
+      <refresh-interval>s30</refresh-interval>
+      <time>
+        <earliest>allTime</earliest>
+      </time>
+    </initial-value>
+  </operation-bar>
+  <grid-layout gap-x="10" gap-y="10" cols="48" row-height="30">
+    <layout left="0" top="0" width="24" height="10">
+      <chart type="liquidFill">
+        <search>
+          <query>repo="coronavirus"
+| stats count(new_death) by country</query>
+        </search>
+        <title>
+          <name>当前值</name>
+        </title>
+        <hide-header>false</hide-header>
+        <operation>
+          <hide>false</hide>
+        </operation>
+        <option name="style.dataType">current</option>
+        <option name="style.metric">count(new_death)</option>
+      </chart>
+    </layout>
+    <layout left="0" top="10" width="48" height="9">
+      <chart type="liquidFill">
+        <search>
+          <query>repo="coronavirus"
+| stats count(new_death) by country</query>
+        </search>
+        <title>
+          <name>自定义形状</name>
+        </title>
+        <hide-header>false</hide-header>
+        <operation>
+          <hide>false</hide>
+        </operation>
+        <option name="style.dataType">total</option>
+        <option name="style.metric">count(new_death)</option>
+        <option name="style.direction">left</option>
+        <option name="style.shape">container</option>
+      </chart>
+    </layout>
+    <layout left="24" top="0" width="24" height="10">
+      <chart type="liquidFill">
+        <search>
+          <query>repo="coronavirus"
+| stats count(new_death) by country</query>
+        </search>
+        <title>
+          <name>自定义形状 颜色</name>
+        </title>
+        <hide-header>false</hide-header>
+        <operation>
+          <hide>false</hide>
+        </operation>
+        <option name="style.dataType">max</option>
+        <option name="style.direction">left</option>
+        <option name="style.metric">count(new_death)</option>
+        <option name="style.shape">pin</option>
+        <option name="style.outlineBorderColor">#00bcd4</option>
+        <option name="style.backgroundColor">#ebecf0</option>
+        <option name="style.waveColor">#f7ea74</option>
+        <option name="style.outColor">#cddc39</option>
+        <option name="style.insideColor">#f971a0</option>
+      </chart>
+    </layout>
+  </grid-layout>
+</dashboard>

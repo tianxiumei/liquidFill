@@ -82,20 +82,12 @@ export class LiquidFill extends React.Component<ILiquidFillProps> {
                     color: get(config,'backgroundColor')|| '#ffff'
                 },
                 label: {
-                    normal: {
-                        formatter: () => this.displayDataFormatter(),
-                        textStyle: {
-                            fontSize:get(config,'fontSize')|| 50
-                        }
-                    }
+                    fontSize:get(config,'fontSize')|| 50,
+                    formatter: () => this.displayDataFormatter(),
+                    color:get(config,'outColor')||'#2c6dd2',
+                    insideColor: get(config,'insideColor')||'#ffff',
                 },
                 data: [{
-                    value: 0.6,
-                    direction:get(config,'direction')|| 'left', 
-                    itemStyle: {
-                        color: get(config,'waveColor')||'#2c6dd2'
-                    }
-                }, {
                     value: 0.5,
                     direction:get(config,'direction')|| 'left', 
                     itemStyle: {
@@ -109,6 +101,12 @@ export class LiquidFill extends React.Component<ILiquidFillProps> {
                     }
                 }, {
                     value: 0.3,
+                    direction:get(config,'direction')|| 'left', 
+                    itemStyle: {
+                        color: get(config,'waveColor')||'#2c6dd2'
+                    }
+                }, {
+                    value: 0.2,
                     direction:get(config,'direction')|| 'left', 
                     itemStyle: {
                         color: get(config,'waveColor')||'#2c6dd2'

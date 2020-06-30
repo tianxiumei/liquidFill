@@ -19,4 +19,6 @@ export interface IConfig{
   amplitude:number
   waveColor:string
   direction:string
+  insideColor:string
+  outColor:string
 }
