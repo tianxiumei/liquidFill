@@ -1,7 +1,7 @@
 <form>
   <collapse accordion="true">
     <panel title="常规">
-      <input type="dropdown"  field="dataType" required="true">
+      <input type="dropdown"  field="dataType" >
         <label>统计选项</label>
         <initial-value>current</initial-value>
         <choice value="current">当前值</choice>
@@ -11,12 +11,22 @@
         <choice value="min">最小值</choice>
         <choice value="avg">平均值</choice>
       </input>
-      <input type="dropdown" field="metric">
+      <input type="multiselect" field="metrics" required="true">
         <label>统计指标</label>
         <dataset>fields</dataset>
       </input>
+      <input type="dropdown"  field="percentage" >
+        <label>单位</label>
+        <initial-value>percentageTwo</initial-value>
+        <choice value="percentageOne">百分比（0-100）</choice>
+        <choice value="percentageTwo">百分比（0.0-1.0）</choice>
+      </input>
+      <input type="number"  field="decimal">
+        <label>小数位数</label>
+        <initial-value>2</initial-value>
+      </input>
     </panel>
-    <panel title="样式">
+    <panel title="水球设置">
       <input type="dropdown" field="shape">
         <label>形状</label>
         <initial-value>circle</initial-value>
@@ -29,7 +39,26 @@
         <choice value="arrow">箭头</choice>
          <choice value="container">容器</choice>
        </input>
-       <input type="dropdown" field="outlineShow">
+       
+       <input type="color" field="backgroundColor">
+        <label>背景色</label>
+        <initial-value>#ffffff</initial-value>
+      </input>
+      <input type="number" field="fontSize">
+        <label>字号</label>
+        <initial-value>50</initial-value>
+      </input>
+      <input type="color" field="insideColor">
+        <label>内部字体颜色</label>
+        <initial-value>#ffffff</initial-value>
+      </input>
+      <input type="color" field="outColor">
+        <label>外部字体颜色</label>
+        <initial-value>#2c6dd2</initial-value>
+      </input>
+    </panel>
+    <panel title="边框设置">
+      <input type="dropdown" field="outlineShow">
          <label>显示边框</label>
          <initial-value>true</initial-value>
          <choice value="false">否</choice>
@@ -39,22 +68,12 @@
         <label>边框颜色</label>
         <initial-value>#156ACF</initial-value>
        </input>
-       <input type="color" field="backgroundColor">
-        <label>背景色</label>
-        <initial-value>#ffff</initial-value>
-      </input>
-      <input type="number" field="fontSize">
-        <label>字号</label>
-        <initial-value>50</initial-value>
-      </input>
-      <input type="color" field="insideColor">
-        <label>内部字体颜色</label>
-        <initial-value>#ffff</initial-value>
-      </input>
-      <input type="color" field="outColor">
-        <label>外部字体颜色</label>
-        <initial-value>#ffff</initial-value>
-      </input>
+       <input type="number"  field="borderWidth">
+        <label>边框宽</label>
+        <initial-value>5</initial-value>
+       </input>
+    </panel>
+       <panel title="水波设置">
       <input type="number" field="amplitude">
         <label>水波震动幅度</label>
         <initial-value>9</initial-value>

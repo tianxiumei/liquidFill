@@ -7,9 +7,14 @@ export enum DataType{
   Average = 'average'
 }
 
+export enum IPercentage{
+  PercentageOne='percentageOne',
+  PercentageTwo='percentageTwo'
+}
+
 export interface IConfig{
   dataType:DataType
-  metric:string
+  metrics:string[]
   bucket:string
   backgroundColor:string
   shape:string
@@ -21,4 +26,7 @@ export interface IConfig{
   direction:string
   insideColor:string
   outColor:string
+  percentage:IPercentage
+  decimal:number
+  borderWidth:number
 }

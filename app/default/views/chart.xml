@@ -17,25 +17,42 @@
     <layout left="0" top="0" width="24" height="10">
       <chart type="liquidFill">
         <search>
-          <query>repo="coronavirus"
-| stats count(new_death) by country</query>
+          <query>
+            sourcetype="bullet_graph_app"
+| eval a=100.0
+| eval b=20.0
+| eval c=30.0
+| eval d=40.0
+| eval e=b/a
+| eval f=c/a
+| eval g=d/a
+          </query>
         </search>
         <title>
-          <name>当前值</name>
+          <name>基础水球图</name>
         </title>
         <hide-header>false</hide-header>
         <operation>
           <hide>false</hide>
         </operation>
+        <option name="style.decimal">2</option>
+        <option name="style.metrics">["e", "f", "g"]</option>
         <option name="style.dataType">current</option>
-        <option name="style.metric">count(new_death)</option>
       </chart>
     </layout>
-    <layout left="0" top="10" width="48" height="9">
+    <layout left="0" top="10" width="48" height="10">
       <chart type="liquidFill">
         <search>
-          <query>repo="coronavirus"
-| stats count(new_death) by country</query>
+          <query>
+            sourcetype="bullet_graph_app"
+| eval a=100.0
+| eval b=20.0
+| eval c=30.0
+| eval d=40.0
+| eval e=b/a
+| eval f=c/a
+| eval g=d/a
+          </query>
         </search>
         <title>
           <name>自定义形状</name>
@@ -44,34 +61,46 @@
         <operation>
           <hide>false</hide>
         </operation>
-        <option name="style.dataType">total</option>
-        <option name="style.metric">count(new_death)</option>
-        <option name="style.direction">left</option>
+        <option name="style.decimal">2</option>
+        <option name="style.metrics">["e", "f", "g"]</option>
+        <option name="style.dataType">current</option>
+        <option name="style.outColor">#2c6dd2</option>
         <option name="style.shape">container</option>
       </chart>
     </layout>
     <layout left="24" top="0" width="24" height="10">
       <chart type="liquidFill">
         <search>
-          <query>repo="coronavirus"
-| stats count(new_death) by country</query>
+          <query>
+            sourcetype="bullet_graph_app"
+| eval a=100.0
+| eval b=20.0
+| eval c=30.0
+| eval d=40.0
+| eval e=b/a
+| eval f=c/a
+| eval g=d/a
+          </query>
         </search>
         <title>
-          <name>自定义形状 颜色</name>
+          <name>自定义颜色</name>
         </title>
         <hide-header>false</hide-header>
         <operation>
           <hide>false</hide>
         </operation>
-        <option name="style.dataType">max</option>
-        <option name="style.direction">left</option>
-        <option name="style.metric">count(new_death)</option>
+        <option name="style.decimal">2</option>
+        <option name="style.dataType">current</option>
+        <option name="style.outColor">#2c6dd2</option>
         <option name="style.shape">pin</option>
-        <option name="style.outlineBorderColor">#00bcd4</option>
-        <option name="style.backgroundColor">#ebecf0</option>
-        <option name="style.waveColor">#f7ea74</option>
-        <option name="style.outColor">#cddc39</option>
-        <option name="style.insideColor">#f971a0</option>
+        <option name="style.backgroundColor">#f7ea74</option>
+        <option name="style.borderWidth">5</option>
+        <option name="style.outlineShow">true</option>
+        <option name="style.outlineBorderColor">#3dbd7d</option>
+        <option name="style.direction">left</option>
+        <option name="style.waveColor">#faa2c1</option>
+        <option name="style.percentage">percentageTwo</option>
+        <option name="style.insideColor">#ffffff</option>
       </chart>
     </layout>
   </grid-layout>

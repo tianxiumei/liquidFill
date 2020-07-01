@@ -1,19 +1,20 @@
 import * as  React from 'react'
+import { get, findIndex, find, sum, min, max, floor, mean, zip } from 'lodash'
 import ReactEcharts from 'echarts-for-react'
-import './style.less'
 import { BasicFieldDataType, FieldDataItem, IField } from '@qn-pandora/visualization-sdk'
-import { size, get, findIndex, find, sum, toNumber, min, max, floor, mean } from 'lodash'
-import { DataType, IConfig } from '../constants'
+import { DataType, IConfig, IPercentage } from '../constants'
+
+import './style.less'
+
 interface ILiquidFillProps {
     dataset: any
-    config:IConfig
+    config: IConfig
 }
 export class LiquidFill extends React.Component<ILiquidFillProps> {
     constructor(props: ILiquidFillProps) {
         super(props)
 
     }
-
 
     getMetrics(fields: any[]) {
         return fields.filter(field => field.flag === 'metric')
@@ -24,25 +25,24 @@ export class LiquidFill extends React.Component<ILiquidFillProps> {
     }
 
 
-    getData(): BasicFieldDataType[] {
-        const {metric}=this.props.config
+    getData(): BasicFieldDataType[][] {
+        const { metrics } = this.props.config
         const rows = this.props.dataset.rows as FieldDataItem[]
         const fields = this.props.dataset.fields as IField[]
-        const metrics =  this.getMetrics(fields)
-        const realMetric=find(fields,(field)=>field.name===metric)
-        const currentMetrics = realMetric?[realMetric]:metrics.map(metric => find(fields, (field: any) => field.name === metric.name))
-            .filter(metric => !!metric) as IField[]
-        const currentMetricKey =metric?metric: get(currentMetrics, [0, 'name'])
-        if (size(currentMetrics) > 0 && size(fields) > 0 && size(rows) > 0) {
-            const metricIndex = this.getFieldIndex(currentMetricKey, fields)
-            return rows.map(row => get(row, metricIndex))
+        const realMetric = metrics && metrics.length > 0 ? metrics.map((metric) => find(fields, (field) => field.name === metric)) : []
+        const currentMetrics = realMetric && realMetric.length > 0 ? realMetric :[] as IField[]
+        if (currentMetrics.length > 0) {
+            const dataIndexs = currentMetrics.map((metric) => findIndex(fields, metric))
+            const data = rows.map((row) => {
+                return dataIndexs.map((index) => row[index])
+            })
+            return data
         }
         return []
     }
 
-    getcurrentData() {
-        const data = this.getData()
-        const dataType=this.props.config.dataType?this.props.config.dataType:DataType.Current
+    getcurrentData = (data: any) => {
+        const dataType = this.props.config.dataType ? this.props.config.dataType : DataType.Current
         switch (dataType) {
             case DataType.Current:
                 return data[0]
@@ -59,67 +59,84 @@ export class LiquidFill extends React.Component<ILiquidFillProps> {
         }
     }
 
-    displayDataFormatter() {
-        const currentData = toNumber(this.getcurrentData())
-        if (!isNaN(currentData)) {
-            return currentData
+    displayDataFormatter = (param: any) => {
+        const value = param.value
+        const { percentage, decimal } = this.props.config
+        if (!isNaN(value)) {
+            switch (percentage) {
+                case IPercentage.PercentageOne:
+                    return `${floor(param.value, decimal || 2)}%`
+                case IPercentage.PercentageTwo:
+                    return `${floor(param.value * 100, decimal || 2)}%`
+                default:
+                    return `${floor(param.value * 100, decimal || 2)}%`
+            }
         }
         return '--'
     }
 
+    displayData = () => {
+        const data = this.getData()
+        if (data.length === 0) {
+            return []
+        }
+        const { config} = this.props
+        const zipData = zip(...data)
+        const realMetric = config.metrics && config.metrics.length > 0 ? config.metrics : []
+        return zipData.map((item, index) => {
+            const name = realMetric ? realMetric[index] :''
+            return ({
+                name,
+                value: this.getcurrentData(item),
+                direction: get(config, 'direction') || 'left',
+                itemStyle: {
+                    color: get(config, 'waveColor') || '#2c6dd2'
+                }
+            })
+        })
+
+    }
 
     getOption = () => {
-        const{config}=this.props
-        const amplitude=get(config,'amplitude') 
-        const outlineShow=get(config,'outlineShow')
+        const data = this.displayData()
+        const { config } = this.props
+        const amplitude = get(config, 'amplitude')
+        const outlineShow = get(config, 'outlineShow')
         const option = {
+            tooltip: {
+                show: true,
+                formatter: (param: any) => {
+                    const name = get(param, 'name') || ''
+                    const value = get(param, 'value') || ''
+                    return `<span>${name}:${value}</span>`
+                }
+            },
             series: [{
                 type: 'liquidFill',
                 radius: '90%',
-                shape:get(config,'shape')  ||'circle',
+                shape: get(config, 'shape') || 'circle',
                 backgroundStyle: {
+                    shadowColor: 'rgba(0, 0, 0, 0.4)',
                     borderWidth: 1,
-                    color: get(config,'backgroundColor')|| '#ffff'
+                    color: get(config, 'backgroundColor') ||'#ffffff'
                 },
                 label: {
-                    fontSize:get(config,'fontSize')|| 50,
-                    formatter: () => this.displayDataFormatter(),
-                    color:get(config,'outColor')||'#2c6dd2',
-                    insideColor: get(config,'insideColor')||'#ffff',
+                    fontSize: get(config, 'fontSize') || 50,
+                    formatter: (param: any) => this.displayDataFormatter(param),
+                    color: get(config, 'outColor') || '#2c6dd2',
+                    insideColor: get(config, 'insideColor') || '#ffffff',
                 },
-                data: [{
-                    value: 0.5,
-                    direction:get(config,'direction')|| 'left', 
-                    itemStyle: {
-                        color: get(config,'waveColor')||'#2c6dd2'
-                    }
-                }, {
-                    value: 0.4,
-                    direction:get(config,'direction')|| 'left', 
-                    itemStyle: {
-                        color: get(config,'waveColor')||'#2c6dd2'
-                    }
-                }, {
-                    value: 0.3,
-                    direction:get(config,'direction')|| 'left', 
-                    itemStyle: {
-                        color: get(config,'waveColor')||'#2c6dd2'
-                    }
-                }, {
-                    value: 0.2,
-                    direction:get(config,'direction')|| 'left', 
-                    itemStyle: {
-                        color: get(config,'waveColor')||'#2c6dd2'
-                    }
-                }],
-                amplitude:amplitude||amplitude===0?amplitude: 9,
+                data,
+                amplitude: amplitude || amplitude === 0 ? amplitude : 9,
                 tooltip: {
                     show: true
                 },
                 outline: {
-                    show:outlineShow?outlineShow==='false' ?false:true:true,
+                    show: outlineShow ? outlineShow === 'false' ? false : true : true,
                     itemStyle: {
-                        borderColor: get(config,'outlineBorderColor')|| '#156ACF',
+                        borderWidth: get(config,'borderWidth')||5,
+                        borderColor: get(config, 'outlineBorderColor') || '#156ACF',
+                        shadowColor: '#ffffff'
                     }
                 }
             }]
