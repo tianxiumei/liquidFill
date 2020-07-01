@@ -68,6 +68,10 @@
         <label>边框颜色</label>
         <initial-value>#156ACF</initial-value>
        </input>
+       <input type="color" field="shadowColor">
+        <label>边框阴影颜色</label>
+        <initial-value>#ffffff</initial-value>
+       </input>
        <input type="number"  field="borderWidth">
         <label>边框宽</label>
         <initial-value>5</initial-value>

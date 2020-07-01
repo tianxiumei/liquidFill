@@ -122186,7 +122186,7 @@ define(['exports', 'react', 'react-dom', '@qn-pandora/visualization-sdk'], funct
                                 itemStyle: {
                                     borderWidth: lodash_187(config, 'borderWidth') || 5,
                                     borderColor: lodash_187(config, 'outlineBorderColor') || '#156ACF',
-                                    shadowColor: '#ffffff'
+                                    shadowColor: lodash_187(config, 'shadowColor') || '#ffffff'
                                 }
                             }
                         }]

@@ -17,7 +17,7 @@ export default class VisualizationStore extends VisualizationBase {
 
 
   updateView(dataset: any,config:IConfig) {
-    console.log('dataset::',dataset)
+    console.log('dataset::',config)
     ReactDom.render(
       <LiquidFill dataset={dataset} config={config} />,
       this.element

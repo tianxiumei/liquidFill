@@ -29,4 +29,5 @@ export interface IConfig{
   percentage:IPercentage
   decimal:number
   borderWidth:number
+  shadowColor:string
 }

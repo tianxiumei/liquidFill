@@ -136,7 +136,7 @@ export class LiquidFill extends React.Component<ILiquidFillProps> {
                     itemStyle: {
                         borderWidth: get(config,'borderWidth')||5,
                         borderColor: get(config, 'outlineBorderColor') || '#156ACF',
-                        shadowColor: '#ffffff'
+                        shadowColor:get(config,'shadowColor') ||'#ffffff'
                     }
                 }
             }]
